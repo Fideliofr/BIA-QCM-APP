@@ -5,11 +5,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>BIA — Brevet d'Initiation Aéronautique</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600&family=DM+Mono:wght@400;500&display=swap" crossorigin>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600&family=DM+Mono:wght@400;500&display=swap');
-/* GitHub Pages / CSP fallback font stack */
+/* Fallback si Google Fonts bloqué */
 :root {
   --font-display: 'Bebas Neue', 'Impact', 'Arial Narrow', sans-serif;
   --font-body: 'DM Sans', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
@@ -25,7 +25,7 @@ button:focus,button:focus-visible,button:active{outline:none!important;box-shado
   --cloud:#e0eeff;--text:#7fa8d8;--text2:#3d6090;
   --accent:#2d8fff;--good:#22c55e;--bad:#ef4444;--warn:#f59e0b;--r:14px;
 }
-body{font-family:'DM Sans','Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--sky);color:var(--text);min-height:100dvh;overflow-x:hidden;overflow-y:auto;}
+body{font-family:'DM Sans','Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--sky);color:var(--text);min-height:100dvh;overflow-x:hidden;overflow-y:auto;-webkit-font-smoothing:antialiased;}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:
   radial-gradient(ellipse 80% 60% at 50% -20%,rgba(45,143,255,.18) 0%,transparent 70%),
   radial-gradient(1px 1px at  8% 12%,rgba(255,255,255,.7) 0%,transparent 100%),
@@ -40,8 +40,8 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
   radial-gradient(2px 2px at 21% 23%,rgba(45,143,255,.45)  0%,transparent 100%),
   radial-gradient(2px 2px at 64% 39%,rgba(45,143,255,.35)  0%,transparent 100%),
   radial-gradient(2px 2px at 35% 71%,rgba(45,143,255,.28)  0%,transparent 100%);}
-body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:320px;background:linear-gradient(to top,rgba(45,143,255,.07),transparent);pointer-events:none;z-index:0;}
-#app{position:relative;z-index:1;min-height:100dvh;overflow-x:hidden;}
+body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:50vh;background:linear-gradient(to top,rgba(2,8,20,1) 0%,rgba(45,143,255,.06) 40%,transparent 100%);pointer-events:none;z-index:0;}
+#app{position:relative;z-index:1;min-height:100dvh;overflow-x:hidden;isolation:isolate;}
 .screen{display:none;}
 .screen.active{display:flex;flex-direction:column;min-height:100dvh;}
 /* Quiz screen doesn't need to stretch to full height - just natural flow */
@@ -303,7 +303,7 @@ padding:18px 14px;cursor:pointer;transition:background .13s,transform .1s;text-a
 /* COUNT PICKER */
 #count-picker{padding:34px 18px;align-items:center;justify-content:center;gap:26px;}
 .count-options{display:flex;gap:12px;}
-.count-btn{user-select:none;
+.count-btn{user-select:none;text-align:center;
 background:var(–panel);border:1px solid var(–border)!important;border-radius:var(–r);
 width:112px;height:112px;cursor:pointer;transition:background .13s,transform .09s;
 display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
@@ -677,24 +677,24 @@ button, .mode-card, .matiere-card, .count-btn{touch-action:manipulation;}
   </div>
 
   <div class="modes-grid">
-    <div class="mode-card" onclick="startExam()">
+    <button class="mode-card" onclick="startExam()">
       <span class="mode-icon">🎓</span>
       <div class="mode-badge">100 Q</div>
       <div class="mode-name">Mode Examen</div>
       <div class="mode-desc">Simulation complète — 100 questions, toutes matières, résultat final uniquement.</div>
-    </div>
-    <div class="mode-card" onclick="goToCountPicker('entrainement')">
+    </button>
+    <button class="mode-card" onclick="goToCountPicker('entrainement')">
       <span class="mode-icon">📖</span>
       <div class="mode-badge">FEEDBACK</div>
       <div class="mode-name">Mode Entraînement</div>
       <div class="mode-desc">Sélectionne ta réponse, valide avec le bouton vert, puis découvre l'explication.</div>
-    </div>
-    <div class="mode-card" onclick="goToMatierePicker()">
+    </button>
+    <button class="mode-card" onclick="goToMatierePicker()">
       <span class="mode-icon">🎯</span>
       <div class="mode-badge">PAR MATIÈRE</div>
       <div class="mode-name">Entraînement par Matière</div>
       <div class="mode-desc">Choisissez une matière précise et entraînez-vous avec feedback détaillé.</div>
-    </div>
+    </button>
   </div>
 </div>
 
@@ -718,9 +718,9 @@ button, .mode-card, .matiere-card, .count-btn{touch-action:manipulation;}
     <div class="screen-subtitle">Choisissez combien de questions vous souhaitez</div>
   </div>
   <div class="count-options">
-    <div class="count-btn" onclick="selectCount(5,this)"><span class="count-num">5</span><span class="count-label">questions</span></div>
-    <div class="count-btn" onclick="selectCount(10,this)"><span class="count-num">10</span><span class="count-label">questions</span></div>
-    <div class="count-btn" onclick="selectCount(20,this)"><span class="count-num">20</span><span class="count-label">questions</span></div>
+    <button class="count-btn" onclick="selectCount(5,this)"><span class="count-num">5</span><span class="count-label">questions</span></button>
+    <button class="count-btn" onclick="selectCount(10,this)"><span class="count-num">10</span><span class="count-label">questions</span></button>
+    <button class="count-btn" onclick="selectCount(20,this)"><span class="count-num">20</span><span class="count-label">questions</span></button>
   </div>
   <button class="start-btn" id="start-btn" disabled onclick="launchQuiz()">COMMENCER</button>
 </div>
@@ -2236,7 +2236,7 @@ else ctx.clearRect(0,0,canvas.width,canvas.height);
 }
 draw();
 }
-const EXAM_DATE = new Date(‘2026-05-20T08:00:00’);
+const EXAM_DATE = new Date(‘2026-05-20T08:00:00+02:00’); // UTC+2 heure française
 function updateCountdown(){
 const chip = document.getElementById(‘countdown-chip-text’);
 if(!chip) return;
